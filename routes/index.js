@@ -22,4 +22,19 @@ router.post('/add', function(req, res, next) {
 		res.redirect('/');
 	});
 });
+
+router.get('/turn/:id', function(req, res, next){
+	var id = req.params.id;
+	model.findById(id,function(err, task){
+		if(err){
+			throw err;
+		}
+		task.status = !task.status;
+		task.save(function() {
+			res.redirect('/');
+		})
+	});
+});
+
+
 module.exports = router;
